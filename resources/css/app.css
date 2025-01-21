@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    scroll-behavior: smooth;
+}
+
+.btn {
+    @apply px-2 py-1  border-2  rounded text-blue-600 bg-white border-blue-600;
+}
+
+.btn:hover {
+    @apply bg-white text-blue-600 border-blue-600;
+}
+
+#content {
+    @apply px-8 flex flex-col justify-center items-center w-full;
+
+}
+
+table tr:nth-child(odd) {
+    @apply shadow-sm bg-gray-100;
+}
+
+table th {
+    @apply h-10 px-6 py-2  text-center text-slate-900 bg-blue-100 border-black text-sm;
+}
+
+
+
+table td {
+    @apply h-10 px-6 py-2  text-center text-slate-800 border-black text-[12px];
+}
+
+#modal {
+    display: none;
+}
+
+.car-container .car {
+    @apply duration-150;
+}
+
+.car-container .car:hover {
+    @apply scale-150 z-10 duration-150;
+}
+
+.car-container .car:hover + *,
+.car-container .car:has(+*:hover),
+.car-container .car:hover + * + *,
+.car-container .car:has(+ * + *:hover),
+.car-container .car:hover + * + * + * ,
+.car-container .car:has(+ * + * + *:hover),
+.car-container .car:hover + * + * + * + *,
+.car-container .car:has(+ * + * + * +*:hover),
+.car-container .car:hover + * + * + * + * + *,
+.car-container .car:has(+ * + * + * + * + *:hover)
+{
+    @apply blur-sm;
+}
