@@ -10,26 +10,8 @@ class RentController extends Controller
     //
 
     public function index()
-
-
     {
-        $rents = Rent::query()
-            ->join('cars', 'cars.id', '=', 'rents.carId')
-            ->get([
-                'rents.id',
-                'userEmail',
-                'cars.brand',
-                'cars.model',
-                'cars.year',
-                'carId',
-                'start',
-                'end',
-                'rents.price',
-                'duration',
-                'paymentStatus',
-                'rentStatus',
-                'rents.created_at'
-            ]);
+        $rents = Rent::with(['user', 'car'])->get();
         return view('rents.index', compact('rents'));
     }
     public function price()

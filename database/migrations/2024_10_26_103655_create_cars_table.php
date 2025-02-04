@@ -13,19 +13,16 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->string('brand');
             $table->string('model');
             $table->string('year');
             $table->unsignedBigInteger('mileage');
             $table-> string('engine');
+            $table-> string('drive');
             $table-> string('transmission');
-            $table->float('price');
-            $table->string('preview');
-            $table->string('body');
-            $table->unsignedInteger('likes')->default(0);
+            $table->float('rent_price');
+            $table->string('body_type');
+            $table->string('preview_photo')->nullable()->default('default-preview.png');
             $table->longText('photos')->nullable()->default(null);
-            $table->longText('description')->nullable()->default(null);
-            $table->boolean('inRent')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

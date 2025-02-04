@@ -10,9 +10,7 @@ class CarController extends Controller
 {
     public function index()
     {
-        $cars = Car::where('inRent', 0)
-            ->orderBy('id', 'desc')
-            ->paginate(12);
+        $cars = Car::all()->sortByDesc('created_at');
         return view('cars.index', compact('cars'));
     }
 
@@ -31,17 +29,33 @@ class CarController extends Controller
     {
 
         $data = request()->validate([
-            'brand' => '',
             'model' => '',
             'year' => '',
             'mileage' => '',
-            'price' => '',
+            'rent_price' => '',
             'engine' => '',
-            'body' => '',
-            'description' => '',
-            'transmission' => ''
+            'body_type' => '',
+            'transmission' => '',
+            'drive'=>''
 
         ]);
+        $photos = request()->file('photos');
+        if($photos)
+        {
+            $photosPaths = [];
+            foreach ($photos as $photo) {
+                $fileName = uniqid() . '-' . $photo->getClientOriginalName();
+                $photo->move(public_path('assets/carPhotos'), $fileName);
+                $photosPaths[] = $fileName;
+            }
+            $data['photos'] = implode(';', $photosPaths);
+        }
+        $previewPhoto = request()->preview_photo;
+        if($previewPhoto){
+            $fileName = uniqid() . '-' . $previewPhoto->getClientOriginalName();
+            $previewPhoto->move(public_path('assets/carsPreviews/'), $fileName);
+            $data['preview_photo'] = $fileName;
+        }
         $car->update($data);
         return redirect()->route('cars.show', $car['id']);
 
@@ -76,35 +90,39 @@ class CarController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'brand' => '',
             'model' => '',
             'year' => '',
             'mileage' => '',
-            'price' => '',
+            'rent_price' => '',
             'engine' => '',
-            'body' => '',
-            'description' => '',
-            'transmission' => ''
+            'body_type' => '',
+            'transmission' => '',
+            'drive'=>''
 
         ]);
-        $data['likes'] = rand(0, 10000);
+
 //
 //
         $photos = request()->file('photos');
-        $photosPaths = [];
-        foreach ($photos as $photo) {
-            $fileName = uniqid() . '-' . $photo->getClientOriginalName();
-            $photo->move(public_path('assets/carPhotos'), $fileName);
-            $photosPaths[] = $fileName;
+        if($photos)
+        {
+            $photosPaths = [];
+            foreach ($photos as $photo) {
+                $fileName = uniqid() . '-' . $photo->getClientOriginalName();
+                $photo->move(public_path('assets/carPhotos'), $fileName);
+                $photosPaths[] = $fileName;
+            }
+            $data['photos'] = implode(';', $photosPaths);
         }
-        $data['photos'] = implode(';', $photosPaths);
-        $file = request()->preview;
-        $fileName = uniqid() . '-' . $file->getClientOriginalName();
-        $file->move(public_path('assets/carsPreviews/'), $fileName);
-        $data['preview'] = $fileName;
+        $previewPhoto = request()->preview_photo;
+        if($previewPhoto){
+            $fileName = uniqid() . '-' . $previewPhoto->getClientOriginalName();
+            $previewPhoto->move(public_path('assets/carsPreviews/'), $fileName);
+            $data['preview_photo'] = $fileName;
+        }else $data['preview_photo'] = 'default-preview.png';
+
         Car::create($data);
         return redirect()->route('cars.index');
-
     }
 
 

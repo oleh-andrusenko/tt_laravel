@@ -64,21 +64,17 @@ class AuthController extends Controller
             'fullName' => 'required|string|max:255',
             'birthDate' => 'required|date|before:today',
         ]);
-
         $data['password'] = bcrypt($data['password']);
         $avatar = request()->file('avatar');
-
-
-        $fileName = uniqid() . '-' . $avatar->getClientOriginalName();
-        $avatar->move(public_path('assets/userAvatars/'), $fileName);
-        $data['avatar'] = $fileName;
+        if($avatar){
+            $fileName = uniqid() . '-' . $avatar->getClientOriginalName();
+            $avatar->move(public_path('assets/userAvatars/'), $fileName);
+            $data['avatar'] = $fileName;
+        }
         $user = User::create($data);
         if($user) {
-            //event(new Registered($user));
-
             auth("web")->login($user);
         }
-
         return redirect(route("cars.index"));
     }
 }

@@ -8,16 +8,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="{{asset('js/datePicker.js')}}"></script>
-    <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/png">
+    <script src="{{asset('js/app.js')}}"></script>
 
     <title>
         @yield('title', 'Renta Car - Rent your dream car with easy')
     </title>
-
 
 </head>
 <body>
@@ -27,8 +28,6 @@
         <img class="h-8" src="{{asset('logo.png')}}" alt="RentaCar logo">Renta Car
     </a>
     @auth('web')
-
-
         <div class="border-l-2 flex items-center gap-4 ">
             @if(auth('web')->user()->isAdmin)
                 <div class="pl-4 flex gap-2 items-center">
@@ -42,8 +41,6 @@
             @endif
             <div
                 class="ml-4 w-10 px-4 bg-[url({{asset('assets/userAvatars/'.auth('web')->user()->avatar)}})] h-10 bg-center bg-cover border flex items-center justify-center rounded-full">
-
-
             </div>
             <div class="text-sm text-slate-500">
                 <a class="text-slate-900" href="{{route('profile.show', auth('web')->user()->id)}}">{{auth('web')->user()->fullName}}</a>

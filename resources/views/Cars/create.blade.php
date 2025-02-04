@@ -11,21 +11,7 @@
                     <h2 class="text-2xl font-semibold text-blue-500 text-center border-b-2 pb-4">Create new car</h2>
 
                     <div class="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 ">
-                        <div class="sm:col-span-1">
-                            <label for="brand"
-                                   class="block text-sm/6 font-medium text-gray-900">Brand</label>
-                            <div class="mt-2">
-                                <div
-                                    class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300  sm:max-w-md">
 
-                                    <input type="text"
-                                           name="brand"
-                                           id="brand"
-                                           class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
-                                           placeholder="Audi"/>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="sm:col-span-1">
                             <label for="model"
@@ -36,7 +22,7 @@
 
                                     <input type="text" name="model" id="model"
                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
-                                           placeholder="A4"/>
+                                           placeholder="Audi A4"/>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +57,7 @@
                             </div>
                         </div>
                         <div class="sm:col-span-1">
-                            <label for="price"
+                            <label for="rent_price"
                                    class="block text-sm/6 font-medium text-gray-900">Price per day, $</label>
                             <div class="mt-2">
                                 <div
@@ -79,8 +65,8 @@
 
                                     <input type="number"
                                            min={0}
-                                           name="price"
-                                           id="price"
+                                           name="rent_price"
+                                           id="rent_price"
                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
                                            placeholder="250"/>
                                 </div>
@@ -104,20 +90,20 @@
                         </div>
 
                         <div class={'col-span-1'}>
-                            <label for="body"
+                            <label for="body_type"
                                    class="block text-sm/6 font-medium text-gray-900 mb-2.5">Body type</label>
 
                             <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300  sm:max-w-md">
 
-                                <select id="body" name="body"
+                                <select id="body_type" name="body_type"
                                         class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6">
-                                    <option>Wagon</option>
-                                    <option>Sedan</option>
-                                    <option>Crossover</option>
-                                    <option>Hatchback</option>
-                                    <option>Supercar</option>
-                                    <option>Van</option>
-                                    <option>Minivan</option>
+                                    <option value="Wagon">Wagon</option>
+                                    <option value="Sedan">Sedan</option>
+                                    <option value="Crossover">Crossover</option>
+                                    <option value="Hatchback">Hatchback</option>
+                                    <option value="Supercar">Supercar</option>
+                                    <option value="Van">Van</option>
+                                    <option value="Minivan">Minivan</option>
                                 </select>
                             </div>
 
@@ -131,32 +117,52 @@
                                     class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
 
                                 </div>
-                                <input type="text" name="transmission" id="transmission"
-                                       class="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6"
-                                       placeholder="Automatic, RWD"/>
+                                <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300  sm:max-w-md">
+
+                                    <select id="transmission" name="transmission"
+                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6">
+                                        <option value="Automatic">Automatic</option>
+                                        <option valu="Manual">Manual</option>
+                                    </select>
+                                </div>
 
                             </div>
                         </div>
+                        <div class={'col-span-1'}>
+                            <label for="drive"
+                                   class="block text-sm/6 font-medium text-gray-900 mb-2.5">Drive</label>
 
+                            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300  sm:max-w-md">
 
-                        <div class="col-span-full">
-                            <label for="description"
-                                   class="block text-sm/6 font-medium text-gray-900">Description</label>
-                            <div class="mt-2">
-                                  <textarea id="description" name="description" rows="3"
-                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6"></textarea>
+                                <select id="drive" name="drive"
+                                        class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6">
+                                    <option value="FWD">FWD</option>
+                                    <option value="RWD">RWD</option>
+                                    <option value="AWD">AWD</option>
+                                </select>
                             </div>
-                            <p class="mt-3 text-sm/6 text-gray-600">Write a few sentences about car.</p>
+
                         </div>
+
+
+{{--                        <div class="col-span-full">--}}
+{{--                            <label for="description"--}}
+{{--                                   class="block text-sm/6 font-medium text-gray-900">Description</label>--}}
+{{--                            <div class="mt-2">--}}
+{{--                                  <textarea id="description" name="description" rows="3"--}}
+{{--                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6"></textarea>--}}
+{{--                            </div>--}}
+{{--                            <p class="mt-3 text-sm/6 text-gray-600">Write a few sentences about car.</p>--}}
+{{--                        </div>--}}
 
                         <div class="col-span-1">
                             <label for="preview"
                                    class="block text-sm/6 font-medium text-gray-900">Preview photo</label>
-                            <input type="file" name="preview" id="preview" class="hidden">
+                            <input type="file" name="preview_photo" id="preview_photo" class="hidden">
                             <div class="w-full">
 
                                 <button type="button"
-                                        onclick="document.getElementById('preview').click();"
+                                        onclick="document.getElementById('preview_photo').click();"
                                         class="w-full mt-2 bg-blue-500 text-white rounded-md  px-2.5 py-1.5 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-400">
                                     Choose
                                 </button>
@@ -167,7 +173,6 @@
                                    class="block text-sm/6 font-medium text-gray-900">Car photos</label>
                             <div class="w-full">
                                 <input type="file" name="photos[]" id="photos" class="hidden" multiple>
-
                                 <button type="button"
                                         onclick="document.getElementById('photos').click();"
                                         class="w-full mt-2 bg-blue-500 text-white rounded-md px-2.5 py-1.5 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-400">

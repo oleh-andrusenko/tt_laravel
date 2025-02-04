@@ -14,7 +14,7 @@ class AdminController extends Controller
         $carsCount = Car::count();
         $rentsCount = Rent::count();
         $usersCount = User::count();
-        $freeCars = Car::where('inRent', 0)->count();
+        $freeCars = 1;
         return view('admin.dashboard', compact('carsCount', 'rentsCount', 'usersCount', 'freeCars'));
     }
 }
