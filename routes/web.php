@@ -39,24 +39,20 @@ Route::group([
 });
 
 
-Route::prefix('admin')
-    ->middleware('is_admin')
-    ->group(function () {
-        Route::group([
-            'prefix'=>'admin',
-            'as'=>'admin.',
-        ], function () {
-            Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-            Route::get('/cars', [AdminController::class, 'cars'])->name('cars');
-            Route::get('/users', [AdminController::class, 'users'])->name('users');
-            Route::get('/rents', [AdminController::class, 'rents'])->name('rents');
-            Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews');
-        });
+Route::group([
+    'middleware' => 'is_admin',
+    'prefix' => 'admin',
+], function() {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/cars', [AdminController::class, 'cars'])->name('cars');
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/rents', [AdminController::class, 'rents'])->name('rents');
+    Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews');
+
         Route::group([
             'prefix' => 'cars',
             'as' => 'cars.'
         ], function () {
-            Route::get('/', [CarController::class, 'table'])->name('table');
             Route::get('/create', [CarController::class, 'create'])->name('create');
             Route::post('/store', [CarController::class, 'store'])->name('store');
             Route::post('/{car}/update', [CarController::class, 'update'])->name('update');
@@ -65,7 +61,6 @@ Route::prefix('admin')
             Route::get('/{car}/release', [CarController::class, 'release'])->name('release');
         });
         Route::prefix('rents')->group(function () {
-            Route::get('/', [RentController::class, 'index'])->name('rents.index');
             Route::get('/{rent}/edit', [RentController::class, 'edit'])->name('rents.edit');
             Route::post('/{rent}/update', [RentController::class, 'update'])->name('rents.update');
             Route::post('/price', [RentController::class, 'price'])->name('rent.price');

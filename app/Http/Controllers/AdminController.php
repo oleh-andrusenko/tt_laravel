@@ -13,9 +13,13 @@ class AdminController extends Controller
 {
     //
 
-    public function dashboard(Request $request)
+    public function dashboard()
     {
-        return view('admin.dashboard');
+        $carsCount = Car::all()->count();
+        $usersCount = User::all()->count();
+        $rentsCount = Rent::all()->count();
+        $reviewsCount = Review::all()->count();
+        return view('admin.dashboard', compact('carsCount', 'usersCount', 'rentsCount', 'reviewsCount'));
     }
 
     public function users()
