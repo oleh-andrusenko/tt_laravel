@@ -37,11 +37,12 @@
                        class="block text-sm/6 font-medium text-gray-900">@lang('profile.password')</label>
                 <div class="mt-2">
                     <div
-                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300">
+                        class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 relative">
 
                         <input type="password" name="password" id="password"
                                class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
                                placeholder="********"/>
+                        <x-show-toggler/>
 
                     </div>
                     @error('password')

@@ -47,6 +47,7 @@ Route::prefix('admin')
         Route::post('/price', [RentController::class, 'price'])->name('rent.price');
     });
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/reviews/{review}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 });
 
 

@@ -32,4 +32,48 @@ $(document).ready(function () {
         $('.slider-container').css('margin-left', (currentSlide - 1) * -475  + 'px');
 
     }
+
+
+    $('.showToggler').click(function(e){
+        var target = e.currentTarget
+
+        $(target).hasClass('show')?hidePassword($(target)):showPassword($(target))
+    })
+    function hidePassword(e){
+        e.removeClass('show').addClass('hide')
+
+        e.prev('input').attr('type','password')
+        e.html(`<i class="fa-solid fa-eye"></i>`)
+    }
+    function showPassword(e){
+        e.removeClass('hide').addClass('show')
+        e.prev('input').attr('type','text')
+        e.html(`<i class="fa-solid fa-eye-slash"></i>`)
+    }
+
+
+
+    $('#preview_photo').change(function (e) {
+        if(e.target.files.length === 0){
+            $('#preview_photo_thumbnail').text('No file chosen');
+            return;
+        }
+        $('#preview_photo_thumbnail').append('<img/>');
+        const thumbnail = $('#preview_photo_thumbnail img');
+        thumbnail.attr('width', 128);
+        thumbnail.attr('height', 64);
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onloadend = function () {
+            thumbnail.attr('src', reader.result);
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            thumbnail.attr('src', '');
+        }
+    });
+
+
 });

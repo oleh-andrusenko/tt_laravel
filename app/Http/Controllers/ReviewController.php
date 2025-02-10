@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -24,5 +25,11 @@ class ReviewController extends Controller
         $data['user_id'] = $request->user()->id;
         $car->reviews()->create($data);
         return redirect()->route('cars.show', $car);
+    }
+
+    public function destroy(Review $review)
+    {
+        $review->delete();
+        return redirect()->back();
     }
 }

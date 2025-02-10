@@ -1,18 +1,14 @@
 @extends('layouts.main')
 @section('content')
 
-    <div class="w-[600px] shadow-lg shadow-gray-500 rounded-xl mt-10 py-8 px-10">
+    <div class="w-2/3 shadow-lg shadow-gray-500 rounded-xl py-8 px-10">
         <form
-            class=""
             method='post' enctype="multipart/form-data" action="{{route('cars.store')}}">
             @csrf
             <div class="space-y-12">
                 <div class="border-b border-gray-900/10 pb-12">
                     <h2 class="text-2xl font-semibold text-blue-500 text-center border-b-2 pb-4">Create new car</h2>
-
-                    <div class="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 ">
-
-
+                    <div class="mt-10 grid grid-cols-4 gap-x-6 gap-y-8 ">
                         <div class="sm:col-span-1">
                             <label for="model"
                                    class="block text-sm/6 font-medium text-gray-900">Model</label>
@@ -24,6 +20,9 @@
                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
                                            placeholder="Audi A4"/>
                                 </div>
+                                @error('model')
+                                <p class="text-sm text-red-400">{{$message}}</p>
+                                @enderror
                             </div>
                         </div>
 
@@ -38,6 +37,9 @@
                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
                                            placeholder="2023"/>
                                 </div>
+                                @error('year')
+                                <p class="text-sm text-red-400">{{$message}}</p>
+                                @enderror
                             </div>
                         </div>
 
@@ -54,6 +56,9 @@
                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
                                            placeholder="120000"/>
                                 </div>
+                                @error('mileage')
+                                <p class="text-sm text-red-400">{{$message}}</p>
+                                @enderror
                             </div>
                         </div>
                         <div class="sm:col-span-1">
@@ -70,6 +75,9 @@
                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
                                            placeholder="250"/>
                                 </div>
+                                @error('mileage')
+                                <p class="text-sm text-red-400">{{$message}}</p>
+                                @enderror
                             </div>
                         </div>
 
@@ -86,6 +94,9 @@
                                            class="block flex-1 border-0 bg-transparent py-1.5 pl-4 text-gray-900 placeholder:text-gray-400  sm:text-sm/6"
                                            placeholder="3.0 Diesel"/>
                                 </div>
+                                @error('engine')
+                                <p class="text-sm text-red-400">{{$message}}</p>
+                                @enderror
                             </div>
                         </div>
 
@@ -106,6 +117,9 @@
                                     <option value="Minivan">Minivan</option>
                                 </select>
                             </div>
+                            @error('body_type')
+                            <p class="text-sm text-red-400">{{$message}}</p>
+                            @enderror
 
                         </div>
 
@@ -125,6 +139,9 @@
                                         <option valu="Manual">Manual</option>
                                     </select>
                                 </div>
+                                @error('transmission')
+                                <p class="text-sm text-red-400">{{$message}}</p>
+                                @enderror
 
                             </div>
                         </div>
@@ -141,34 +158,39 @@
                                     <option value="AWD">AWD</option>
                                 </select>
                             </div>
+                            @error('drive')
+                            <p class="text-sm text-red-400">{{$message}}</p>
+                            @enderror
 
                         </div>
 
 
-{{--                        <div class="col-span-full">--}}
-{{--                            <label for="description"--}}
-{{--                                   class="block text-sm/6 font-medium text-gray-900">Description</label>--}}
-{{--                            <div class="mt-2">--}}
-{{--                                  <textarea id="description" name="description" rows="3"--}}
-{{--                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6"></textarea>--}}
-{{--                            </div>--}}
-{{--                            <p class="mt-3 text-sm/6 text-gray-600">Write a few sentences about car.</p>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="col-span-full">--}}
+                        {{--                            <label for="description"--}}
+                        {{--                                   class="block text-sm/6 font-medium text-gray-900">Description</label>--}}
+                        {{--                            <div class="mt-2">--}}
+                        {{--                                  <textarea id="description" name="description" rows="3"--}}
+                        {{--                                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400  sm:text-sm/6"></textarea>--}}
+                        {{--                            </div>--}}
+                        {{--                            <p class="mt-3 text-sm/6 text-gray-600">Write a few sentences about car.</p>--}}
+                        {{--                        </div>--}}
 
-                        <div class="col-span-1">
+                        <div class="col-span-2">
                             <label for="preview"
                                    class="block text-sm/6 font-medium text-gray-900">Preview photo</label>
                             <input type="file" name="preview_photo" id="preview_photo" class="hidden">
                             <div class="w-full">
-
                                 <button type="button"
                                         onclick="document.getElementById('preview_photo').click();"
                                         class="w-full mt-2 bg-blue-500 text-white rounded-md  px-2.5 py-1.5 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-blue-400">
                                     Choose
                                 </button>
+                                <div class="text-gray-700 text-sm mt-4 w-16 h-16 overflow-hidden rounded-lg" id="preview_photo_thumbnail">
+
+                                </div>
                             </div>
                         </div>
-                        <div class="col-span-1">
+                        <div class="col-span-2">
                             <label for="photos"
                                    class="block text-sm/6 font-medium text-gray-900">Car photos</label>
                             <div class="w-full">

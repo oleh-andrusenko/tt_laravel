@@ -10,7 +10,9 @@ class CarController extends Controller
 {
     public function index()
     {
-        $cars = Car::all()->sortByDesc('created_at');
+        $cars = Car::withAverageRating()
+            ->withReviewsCount()
+            ->latest()->get();
         return view('cars.index', compact('cars'));
     }
 
@@ -69,8 +71,9 @@ class CarController extends Controller
 
     }
 
-    public function show(Car $car)
+    public function show(int $id)
     {
+        $car = Car::with('reviews')->withAverageRating()->withReviewsCount()->findOrFail($id);
         return view('cars.show', compact('car'));
     }
 
@@ -90,15 +93,14 @@ class CarController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'model' => '',
-            'year' => '',
-            'mileage' => '',
-            'rent_price' => '',
-            'engine' => '',
-            'body_type' => '',
-            'transmission' => '',
-            'drive'=>''
-
+            'model' => 'required|string|max:64',
+            'year' => 'required',
+            'mileage' => 'required|unsignedBigInteger',
+            'rent_price' => 'required|integer',
+            'engine' => 'required|string|max:64',
+            'body_type' => 'required|string|max:64',
+            'transmission' => 'required|string|max:64',
+            'drive'=>'required|string|max:64'
         ]);
 
 //

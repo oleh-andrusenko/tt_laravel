@@ -25,12 +25,11 @@ class AuthController extends Controller
             'password' => 'required|min:8|max:32'
         ]);
 
-        if(auth('web')->attempt($data)){
+        if (auth('web')->attempt($data)) {
             return redirect('/');
         }
         return redirect(route("login"))
             ->withErrors(["email" => "User not found or password is wrong!"]);
-
 
 
 //        $user = User::where('email', $data['email'])->first();
@@ -59,20 +58,22 @@ class AuthController extends Controller
     public function register()
     {
         $data = request()->validate([
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users',
             'password' => 'required|string|min:8|max:32',
             'fullName' => 'required|string|max:255',
             'birthDate' => 'required|date|before:today',
+            'confirm_password' => 'required|string|min:8|max:32|same:password',
         ]);
+        unset($data['confirm_password']);
         $data['password'] = bcrypt($data['password']);
         $avatar = request()->file('avatar');
-        if($avatar){
+        if ($avatar) {
             $fileName = uniqid() . '-' . $avatar->getClientOriginalName();
             $avatar->move(public_path('assets/userAvatars/'), $fileName);
             $data['avatar'] = $fileName;
         }
         $user = User::create($data);
-        if($user) {
+        if ($user) {
             auth("web")->login($user);
         }
         return redirect(route("cars.index"));

@@ -28,30 +28,50 @@
         <img class="h-8" src="{{asset('logo.png')}}" alt="RentaCar logo">Renta Car
     </a>
     @auth('web')
-        <div class="border-l-2 flex items-center gap-4 ">
+        <div class="flex items-center gap-4 ">
             @if(auth('web')->user()->isAdmin)
-                <div class="pl-4 flex gap-2 items-center">
-                    <a class="border-2 border-blue-500 p-1.5 flex items-center justify-center  rounded bg-blue-500 text-white hover:bg-white hover:text-blue-500" href="{{route('admin.dashboard')}}">
-                        <i class="fa-solid fa-hammer"></i>
-                    </a>
+               <div class="flex gap-4 px-10">
+                   <a class="{{request('tab') === 'stats' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.dashboard', ['tab'=>'stats'])}}">
+                       Statistics
+                   </a>
+                   <a class="{{request('tab') === 'cars' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.dashboard', ['tab'=>'cars'])}}">
+                       Cars
 
+                   </a>
+                   <a class="{{request('tab') === 'users' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.dashboard', ['tab'=>'users'])}}">
+                       Users
 
+                   </a>
+                   <a class="{{request('tab') === 'rents' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.dashboard', ['tab'=>'rents'])}}">
+                       Rents
 
-                </div>
+                   </a>
+                   <a class="{{request('tab') === 'reviews' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.dashboard', ['tab'=>'reviews'])}}">
+                       Reviews
+
+                   </a>
+               </div>
             @endif
             <div
                 class="ml-4 w-10 px-4 bg-[url({{asset('assets/userAvatars/'.auth('web')->user()->avatar)}})] h-10 bg-center bg-cover border flex items-center justify-center rounded-full">
             </div>
-            <div class="text-sm text-slate-500">
-                <a class="text-slate-900" href="{{route('profile.show', auth('web')->user()->id)}}">{{auth('web')->user()->fullName}}</a>
-                <p>
+            <div class="text-sm">
+                <a class="text-slate-900 font-semibold"
+                   href="{{route('profile.show', auth('web')->user()->id)}}">{{auth('web')->user()->fullName}}
+                </a>
+                <p class="text-slate-700">
                     {{auth('web')->user()->email}}
                 </p>
             </div>
             <div>
                 <a href="{{route('logout')}}"
-                   class="px-2 py-1 border-2 border-slate-500 text-slate-500 rounded">
-                    <i class="fa fa-sign-out"></i>
+                   class="flex gap-2 items-center justify-center px-2 py-1 border-2 border-slate-500 text-slate-500 rounded">
+                    Log out  <i class="fa fa-sign-out"></i>
                 </a>
             </div>
 
@@ -64,12 +84,12 @@
             <a href="{{route('login')}}"
                class="btn">
                 @lang('actions.login')</a>
-            @endguest
         </div>
-        <div>
-            <a href="{{route('locale.setLocale', 'ua')}}" class="btn">UA</a>
-            <a href="{{route('locale.setLocale', 'en')}}" class="btn">EN</a>
-        </div>
+    @endguest
+{{--    <div>--}}
+{{--            <a href="{{route('locale.setLocale', 'ua')}}" class="btn">UA</a>--}}
+{{--            <a href="{{route('locale.setLocale', 'en')}}" class="btn">EN</a>--}}
+{{--        </div>--}}
 </header>
 
 <main>
