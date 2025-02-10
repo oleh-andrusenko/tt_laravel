@@ -13,16 +13,32 @@ class AdminController extends Controller
 {
     //
 
-    public function dashboard(Request $request){
-        $filter = $request->input('tab', 'stats');
+    public function dashboard(Request $request)
+    {
+        return view('admin.dashboard');
+    }
 
+    public function users()
+    {
+        $users = User::all();
+        return view('admin.users', compact('users'));
+    }
 
+    public function cars()
+    {
+        $cars = Car::all();
+        return view('admin.cars', compact('cars'));
+    }
 
-        $carsCount = Car::count();
-        $rentsCount = Rent::count();
-        $usersCount = User::count();
-        $reviewsCount = Review::count();
+    public function rents()
+    {
+        $rents = Rent::all();
+        return view('admin.rents', compact('rents'));
+    }
 
-        return view('admin.dashboard', compact('carsCount', 'rentsCount', 'usersCount', 'reviewsCount'));
+    public function reviews()
+    {
+        $reviews = Review::all();
+        return view('admin.reviews', compact('reviews'));
     }
 }

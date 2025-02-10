@@ -31,27 +31,27 @@
         <div class="flex items-center gap-4 ">
             @if(auth('web')->user()->isAdmin)
                <div class="flex gap-4 px-10">
-                   <a class="{{request('tab') === 'stats' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.dashboard', ['tab'=>'stats'])}}">
-                       Statistics
+                   <a class="tab"
+                      href="{{route('admin.dashboard')}}">
+                       Dashboard
                    </a>
-                   <a class="{{request('tab') === 'cars' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.dashboard', ['tab'=>'cars'])}}">
+                   <a class="tab"
+                      href="{{route('admin.cars')}}">
                        Cars
 
                    </a>
-                   <a class="{{request('tab') === 'users' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.dashboard', ['tab'=>'users'])}}">
+                   <a class="tab"
+                      href="{{route('admin.users')}}">
                        Users
 
                    </a>
-                   <a class="{{request('tab') === 'rents' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.dashboard', ['tab'=>'rents'])}}">
+                   <a class="tab"
+                      href="{{route('admin.rents')}}">
                        Rents
 
                    </a>
-                   <a class="{{request('tab') === 'reviews' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.dashboard', ['tab'=>'reviews'])}}">
+                   <a class="tab"
+                      href="{{route('admin.reviews')}}">
                        Reviews
 
                    </a>

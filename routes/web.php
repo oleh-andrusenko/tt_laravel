@@ -42,7 +42,16 @@ Route::group([
 Route::prefix('admin')
     ->middleware('is_admin')
     ->group(function () {
-        Route::get('/', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::group([
+            'prefix'=>'admin',
+            'as'=>'admin.',
+        ], function () {
+            Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+            Route::get('/cars', [AdminController::class, 'cars'])->name('cars');
+            Route::get('/users', [AdminController::class, 'users'])->name('users');
+            Route::get('/rents', [AdminController::class, 'rents'])->name('rents');
+            Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews');
+        });
         Route::group([
             'prefix' => 'cars',
             'as' => 'cars.'
@@ -61,7 +70,6 @@ Route::prefix('admin')
             Route::post('/{rent}/update', [RentController::class, 'update'])->name('rents.update');
             Route::post('/price', [RentController::class, 'price'])->name('rent.price');
         });
-        Route::get('/users', [UserController::class, 'index'])->name('users.index');
         Route::get('/reviews/{review}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
     });
 

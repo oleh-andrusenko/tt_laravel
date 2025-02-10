@@ -3,6 +3,6 @@
 
 
 @section('content')
-    <h1>Dashboard</h1>
+    <h1>Reviews</h1>
 @endsection
 
