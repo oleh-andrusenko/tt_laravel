@@ -31,28 +31,28 @@
         <div class="flex items-center gap-4 ">
             @if(auth('web')->user()->isAdmin)
                <div class="flex gap-4 px-10">
-                   <a class="{{request()->route()->getName() == 'dashboard' ? 'tab active' : 'tab'}}"
-                      href="{{route('dashboard')}}">
+                   <a class="{{request()->route()->getName() == 'admin.dashboard' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.dashboard')}}">
                        Dashboard
                    </a>
 
-                   <a class="{{request()->route()->getName() == 'cars' ? 'tab active' : 'tab'}}"
-                      href="{{route('cars')}}">
+                   <a class="{{request()->route()->getName() == 'admin.cars' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.cars')}}">
                        Cars
 
                    </a>
-                   <a class="{{request()->route()->getName() == 'users' ? 'tab active' : 'tab'}}"
-                      href="{{route('users')}}">
+                   <a class="{{request()->route()->getName() == 'admin.users' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.users')}}">
                        Users
 
                    </a>
-                   <a class="{{request()->route()->getName() == 'rents' ? 'tab active' : 'tab'}}"
-                      href="{{route('rents')}}">
+                   <a class="{{request()->route()->getName() == 'admin.rents' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.rents')}}">
                        Rents
 
                    </a>
-                   <a class="{{request()->route()->getName() == 'reviews' ? 'tab active' : 'tab'}}"
-                      href="{{route('reviews')}}">
+                   <a class="{{request()->route()->getName() == 'admin.reviews' ? 'tab active' : 'tab'}}"
+                      href="{{route('admin.reviews')}}">
                        Reviews
 
                    </a>

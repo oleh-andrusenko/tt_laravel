@@ -15,8 +15,7 @@ class GuestMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check()) {
-
+        if (!auth()->check() || auth()->user()->isAdmin) {
             return $next($request);
         } else return redirect()->route('profile.show', auth()->user()->id);
     }

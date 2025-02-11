@@ -42,31 +42,35 @@ Route::group([
 Route::group([
     'middleware' => 'is_admin',
     'prefix' => 'admin',
-], function() {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::get('/cars', [AdminController::class, 'cars'])->name('cars');
-    Route::get('/users', [AdminController::class, 'users'])->name('users');
-    Route::get('/rents', [AdminController::class, 'rents'])->name('rents');
-    Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews');
-
-        Route::group([
-            'prefix' => 'cars',
-            'as' => 'cars.'
-        ], function () {
-            Route::get('/create', [CarController::class, 'create'])->name('create');
-            Route::post('/store', [CarController::class, 'store'])->name('store');
-            Route::post('/{car}/update', [CarController::class, 'update'])->name('update');
-            Route::get('/{car}/delete', [CarController::class, 'destroy'])->name('destroy');
-            Route::get('/{car}/edit', [CarController::class, 'edit'])->name('edit');
-            Route::get('/{car}/release', [CarController::class, 'release'])->name('release');
-        });
-        Route::prefix('rents')->group(function () {
-            Route::get('/{rent}/edit', [RentController::class, 'edit'])->name('rents.edit');
-            Route::post('/{rent}/update', [RentController::class, 'update'])->name('rents.update');
-            Route::post('/price', [RentController::class, 'price'])->name('rent.price');
-        });
-        Route::get('/reviews/{review}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+], function () {
+    Route::group([
+        'as' => 'admin.',
+    ], function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('/cars', [AdminController::class, 'cars'])->name('cars');
+        Route::get('/users', [AdminController::class, 'users'])->name('users');
+        Route::get('/rents', [AdminController::class, 'rents'])->name('rents');
+        Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews');
     });
+
+    Route::group([
+        'prefix' => 'cars',
+        'as' => 'cars.'
+    ], function () {
+        Route::get('/create', [CarController::class, 'create'])->name('create');
+        Route::post('/store', [CarController::class, 'store'])->name('store');
+        Route::post('/{car}/update', [CarController::class, 'update'])->name('update');
+        Route::get('/{car}/delete', [CarController::class, 'destroy'])->name('destroy');
+        Route::get('/{car}/edit', [CarController::class, 'edit'])->name('edit');
+        Route::get('/{car}/release', [CarController::class, 'release'])->name('release');
+    });
+    Route::prefix('rents')->group(function () {
+        Route::get('/{rent}/edit', [RentController::class, 'edit'])->name('rents.edit');
+        Route::post('/{rent}/update', [RentController::class, 'update'])->name('rents.update');
+        Route::post('/price', [RentController::class, 'price'])->name('rent.price');
+    });
+    Route::get('/reviews/{review}/delete', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+});
 
 
 

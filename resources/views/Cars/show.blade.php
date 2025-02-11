@@ -6,7 +6,7 @@
     <div class="w-full px-6 py-2 rounded border-2 flex gap-8  mt-6">
         <div class="flex w-full gap-8">
             <div
-                class="w-1/3 h-[500px] bg-[url({{asset('assets/carsPreviews/'.$car['preview_photo'])}})] bg-center bg-cover rounded ">
+                class="w-1/3 h-[500px] bg-[url({{asset('assets/carsPreviews/'.$car['preview_photo'])}})] bg-cover bg-no-repeat bg-center rounded ">
             </div>
             <div class="w-2/3">
                 <h2 class="text-4xl text-blue-500 font-semibold">{{$car->model }}, {{$car->year}}</h2>

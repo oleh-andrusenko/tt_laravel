@@ -11,6 +11,7 @@ class Car extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     protected $table = 'cars';
     protected $guarded = false;
 
@@ -19,11 +20,18 @@ class Car extends Model
         return $this->hasMany(Review::class)->latest();
     }
 
-    public function translations(){
+    public function rents()
+    {
+        return $this->hasMany(Rent::class);
+    }
+
+    public function translations()
+    {
         return $this->hasMany(CarsTranslate::class);
     }
 
-    public function scopeWithReviewsCount(Builder $query){
+    public function scopeWithReviewsCount(Builder $query)
+    {
         return $query->withCount('reviews');
     }
 

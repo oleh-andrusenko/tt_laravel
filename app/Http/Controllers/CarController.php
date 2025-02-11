@@ -29,17 +29,16 @@ class CarController extends Controller
 
     public function update(Car $car)
     {
-
-        $data = request()->validate([
-            'model' => '',
-            'year' => '',
-            'mileage' => '',
-            'rent_price' => '',
-            'engine' => '',
-            'body_type' => '',
-            'transmission' => '',
-            'drive'=>''
-
+        $data = request()
+            ->validate([
+            'model' => 'required|string|max:64',
+            'year' => 'required',
+            'mileage' => 'required|integer',
+            'rent_price' => 'required|integer',
+            'engine' => 'required|string|max:64',
+            'body_type' => 'required|string|max:64',
+            'transmission' => 'required|string|max:64',
+            'drive'=>'required|string|max:64'
         ]);
         $photos = request()->file('photos');
         if($photos)
@@ -65,24 +64,20 @@ class CarController extends Controller
 
     public function destroy(Car $car)
     {
-
         $car->delete();
-        return redirect()->route('cars.index');
-
+        return redirect()->back();
     }
 
     public function show(int $id)
     {
-        $car = Car::with('reviews')->withAverageRating()->withReviewsCount()->findOrFail($id);
+        $car = Car::with('reviews')
+            ->withAverageRating()
+            ->withReviewsCount()
+            ->findOrFail($id);
         return view('cars.show', compact('car'));
     }
 
-    public function table()
-    {
 
-        $cars = Car::all()->sortByDesc('created_at');
-        return view('cars.table', compact('cars'));
-    }
 
     public function rent(Car $car)
     {
@@ -95,7 +90,7 @@ class CarController extends Controller
         $data = request()->validate([
             'model' => 'required|string|max:64',
             'year' => 'required',
-            'mileage' => 'required|unsignedBigInteger',
+            'mileage' => 'required|integer',
             'rent_price' => 'required|integer',
             'engine' => 'required|string|max:64',
             'body_type' => 'required|string|max:64',

@@ -24,13 +24,13 @@ table tr:nth-child(odd) {
 }
 
 table th {
-    @apply h-10 px-6 py-2  text-center text-slate-900 bg-blue-100 border-black text-sm;
+    @apply h-10 px-6 py-2  text-center text-slate-900 bg-blue-100 border-black text-[12px] uppercase font-semibold;
 }
 
 
 
 table td {
-    @apply h-10 px-6 py-2  text-center text-slate-800 border-black text-[12px];
+    @apply p-2  text-center text-slate-800 border-black text-[12px];
 }
 
 #modal {
@@ -94,16 +94,22 @@ table td {
 }
 
 .tab:hover{
-    @apply bg-white/10 text-gray-900;
+    @apply bg-white/10 text-blue-700;
 }
 
 .tab.active{
     @apply  font-semibold text-blue-800 border-b-2 border-blue-700;
 }
 
-.tab.active:hover{
-    @apply text-white;
-}
+
 .dashboard-tab{
     @apply p-4 rounded-lg border-2 border-slate-700 flex items-center justify-between text-xl;
+}
+
+.link{
+    @apply text-blue-600 hover:font-semibold underline;
+}
+
+.icon{
+    @apply text-sm text-blue-700 mr-2;
 }

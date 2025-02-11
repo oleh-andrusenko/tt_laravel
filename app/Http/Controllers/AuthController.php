@@ -73,9 +73,15 @@ class AuthController extends Controller
             $data['avatar'] = $fileName;
         }
         $user = User::create($data);
-        if ($user) {
-            auth("web")->login($user);
+
+        if (auth()->check() && auth('web')->user()->isAdmin) {
+            return redirect()->route('admin.users');
+        } else {
+            if ($user) {
+                auth("web")->login($user);
+            }
         }
+
         return redirect(route("cars.index"));
     }
 }

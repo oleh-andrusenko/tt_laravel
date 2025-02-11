@@ -30,7 +30,7 @@ class AdminController extends Controller
 
     public function cars()
     {
-        $cars = Car::all();
+        $cars = Car::all()->sortByDesc('created_at');
         return view('admin.cars', compact('cars'));
     }
 
