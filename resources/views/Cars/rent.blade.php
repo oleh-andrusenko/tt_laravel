@@ -3,16 +3,14 @@
     Rent a {{$car['brand'].' '.$car['model'].' '.$car['year']}}
 @endsection
 @section('content')
-    <main class="flex justify-center items-center py-16 ">
+    <main class="w-2/4 flex flex-col justify-center items-center py-6">
         <div
-            class="w-[300px] h-[300px]  px-6 py-2 border-l-2 border-t-2 border-b-2 bg-white rounded-l *:py-2 flex flex-col  justify-center  border-slate-300 shadow-xl">
-
-            <div class="h-24 bg-[url({{asset('assets/carsPreviews/'.$car->preview)}})] bg-center bg-cover"></div>
-
-            <p class="text-lg text-blue-500 font-semibold"><?= $car['brand'] . ' ' . $car['model'] . ' ' . $car['year'] ?></p>
-            <p><span class="font-semibold">Engine:</span>
-                {{$car['engine']}}
-            </p>
+            class="w-full  px-6 py-2 border-l-2 border-t-2 border-b-2 bg-white rounded-l *:py-2 flex flex-col  justify-center  border-slate-300 shadow-xl">
+            <h2 class="my-2 text-xl font-semibold text-blue-700">Step 1. Check info about car</h2>
+            <div
+                class="h-[300px] bg-[url({{asset('assets/carsPreviews/'.$car->preview_photo)}})] bg-center bg-cover"></div>
+            <p class="text-lg text-blue-500 font-semibold"><?= $car['model'] . ', ' . $car['year'] ?></p>
+            <p><span class="font-semibold">Engine: </span>{{$car['engine']}}</p>
             <p><span class="font-semibold">Transmission:</span>
                 {{$car['transmission']}}
             </p>
@@ -21,90 +19,110 @@
             </p>
             <p>
                 <span class="font-semibold">Price per day:</span>
-                <span id="pricePerDay"> $<?= $car['price'] ?></span>
+                <span id="pricePerDay"> $<?= $car['rent_price'] ?></span>
+                <input type="hidden" id="rentPrice" name="rentPrice" value="<?=$car->rent_price?>">
+                <input type="hidden" id="carID" name="carID" value="<?=$car->id?>">
             </p>
-
+        </div>
+        <div class="w-full mt-8 px-6 py-2 rounded-lg border-2 shadow-lg ">
+            <h2 class="my-2 text-xl font-semibold text-blue-700">Step 2. Select free dates to rent</h2>
+            <div id="calendar" class="w-3/4 py-10 mx-auto"></div>
+            <p class="text-[12px] text-slate-600">Discounts: if rent duration more than 7 days you will get a 25%
+                discount.</p>
 
         </div>
-        <form method='post'
-              action="{{route('cars.rent_proceed', $car['id'])}}"
-              class="w-[500px] rounded-lg shadow-xl px-4 py-6 border-2 border-slate-400 flex flex-col gap-4">
+        <form
+            method="post"
+            action="{{route('cars.rent_proceed', $car)}}"
+            class="w-full mt-8 px-6 py-2 rounded-lg border-2 shadow-lg">
             @csrf
-            <p class="text-center text-2xl my-2 font-semibold text-blue-500 uppercase">Rent car</p>
-            <div class="flex justify-between items-center gap-4">
-                <p class="font-semibold w-1/3">Start date</p>
-                <input class="border-2 rounded-md w-2/3"
-                       type="date"
-                       min="<?= date('Y-m-d') ?>"
-                       name="startDate"
-                       id="startDate"
-                >
-
-            </div>
-            @error('startDate')
-            <p class="text-[10px] text-red-400">
-                {{$message}}
-            </p>
-            @enderror
-            <div class="flex justify-between items-center gap-4">
-                <p class="font-semibold w-1/3">End date</p>
-                <input class="border-2 rounded-md w-2/3"
-                       type="date"
-                       min="<?= date('Y-m-d') ?>" name="endDate" id="endDate">
-
-            </div>
-            @error('endDate')
-            <p class="text-[10px] text-red-400">
-                {{$message}}
-            </p>
-            @enderror
-
-
-            <div class="flex gap-5 items-center justify-between py-4 px-10 rounded border text-sm">
-                <p>Days: <span class="px-4 py-2 bg-blue-500 text-white rounded font-semibold ml-4"
-                               id="rentDays">-</span>
+            <h2 class="my-2 text-xl font-semibold text-blue-700">Step 3. Check rent info</h2>
+            <p class="py-4 text-xl text-center text-gray-700" id="rent_warn">Choose correct dates to see info...</p>
+            <div id="rent_info" hidden="hidden">
+                <p class="py-1.5">
+                    <i class="fa-regular fa-calendar-check icon"></i>
+                    <span class="text-blue-700 font-semibold underline">Start date:</span>
+                    <span id="start_date"></span>
+                    <input type="date" hidden="hidden" name="start" id="start">
                 </p>
-
-                <p>Price: <span class="px-4 py-2 bg-blue-500 text-white rounded font-semibold ml-4"
-                                id="rentPrice">-</span>
+                <p class="py-1.5 ">
+                    <i class="fa-regular fa-calendar-xmark icon"></i>
+                    <span class="text-blue-700 font-semibold underline">End date:</span>
+                    <input type="date" name="end" hidden="hidden" id="end">
+                    <span id="end_date"></span>
                 </p>
-
-
+                <p class="text-[12px] text-slate-600">Attention! Rent starts at 8:00 of chosen start date and ends at
+                    23:59 of chosen end date.</p>
+                <p class="py-1.5 mb-4">
+                    <i class="fa-solid fa-chart-line icon"></i>
+                    <span class="text-blue-700 font-semibold underline">Rent duration:</span>
+                    <span id="dates_diff"></span>
+                    <input type="number" hidden="hidden" id="duration" name="duration"/>
+                </p>
+                <p class="border-t-2 py-4 text-right">
+                    <span class="font-semibold ">
+                        Total price:
+                    </span>
+                    <span id="total_price" class="text-slate-700"></span>
+                    <input type="number" hidden="hidden" name="price" id="price">
+                </p>
+                <button type="submit" class="btn w-full">Proceed rent</button>
             </div>
-            <input hidden="hidden" type="number" name="carPrice" id="carPrice" value="{{$car->price}}">
-            <input hidden="hidden" type="number" name="duration" id="duration">
-            <input hidden="hidden" type="number" name="price" id="price">
-
-
-            <div>
-                <input
-                    class="w-full text-center bg-blue-500 rounded-lg text-white px-2 py-1 mt-6 border-2 border-blue-500 hover:bg-white hover:text-blue-400 cursor-pointer"
-                    type="submit"
-                    value="Rent">
-            </div>
-
         </form>
 
 
-        <div
-            class="w-[300px] h-[300px] px-6 py-2  flex flex-col items-center justify-center  border-r-2 border-t-2 border-b-2  border-slate-300 rounded-r shadow-xl ">
-            <h4 class="w-full text-xl  font-bold text-center mb-4"> Rent discounts</h4>
-            <p class="text-lg text-blue-500 font-semibold mb-4">Discount conditions:</p>
-            <table class="mt-4">
-                <tr>
-                    <td class="pr-6 font-semibold">5+ days</td>
-                    <td>5% off</td>
-                </tr>
-                <tr>
-                    <td class="pr-6 font-semibold">10+ days</td>
-                    <td>10% off</td>
-                </tr>
-                <tr>
-                    <td class="pr-6 font-semibold">21+ days</td>
-                    <td>25% off</td>
-                </tr>
-            </table>
+        <script>
 
-        </div>
+            document.addEventListener('DOMContentLoaded', function () {
+                const calendarEl = document.getElementById('calendar');
+                const carId = $('#carID').val();
+                const rentPrice = $('#rentPrice').val();
+                const calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridYear',
+                    headerToolbar: {
+                        start: '',
+                        center: 'title',
+                        end: ''
+                    },
+                    selectable: true,
+                    events: 'http://localhost:8000/cars/' + carId + '/available',
+                    eventBackgroundColor: '#E53E3E',
+                    eventDisplay: 'background',
+                    validRange: function (nowDate) {
+                        return {
+                            start: nowDate,
+                            end: new Date('2025-12-31')
+                        }
+                    },
+                    selectOverlap: function () {
+                        $('#rent_info').hide();
+                        $('#rent_warn').show();
+                    },
+                    select: function (event) {
+                        $('#rent_info').show();
+                        $('#rent_warn').hide();
+
+
+                        $('#start_date').text(event.startStr);
+                        $('#end_date').text(event.endStr);
+                        $('#start').val(event.startStr);
+                        $('#end').val(event.endStr);
+                        let dateDiffInDays = Math.round(Math.abs((event.start - event.end) / (24 * 60 * 60 * 1000)));
+
+                        let totalPrice = rentPrice * dateDiffInDays;
+                        $('#dates_diff').text(dateDiffInDays + ' day(s)')
+                        $('#duration').val(dateDiffInDays);
+                        totalPrice = dateDiffInDays > 7 ? totalPrice - totalPrice * 0.25 : totalPrice;
+                        $('#price').val(totalPrice);
+                        $('#total_price').text(totalPrice.toLocaleString('en-US', {
+                            style: 'currency',
+                            currency: 'USD',
+                        }));
+                    }
+                });
+                calendar.render();
+            });
+
+        </script>
     </main>
 @endsection

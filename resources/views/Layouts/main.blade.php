@@ -13,6 +13,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
     <script src="{{asset('js/datePicker.js')}}"></script>
     <script src="{{asset('js/app.js')}}"></script>
 
@@ -30,33 +31,33 @@
     @auth('web')
         <div class="flex items-center gap-4 ">
             @if(auth('web')->user()->isAdmin)
-               <div class="flex gap-4 px-10">
-                   <a class="{{request()->route()->getName() == 'admin.dashboard' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.dashboard')}}">
-                       Dashboard
-                   </a>
+                <div class="flex gap-4 px-10">
+                    <a class="{{request()->route()->getName() == 'admin.dashboard' ? 'tab active' : 'tab'}}"
+                       href="{{route('admin.dashboard')}}">
+                        Dashboard
+                    </a>
 
-                   <a class="{{request()->route()->getName() == 'admin.cars' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.cars')}}">
-                       Cars
+                    <a class="{{request()->route()->getName() == 'admin.cars' ? 'tab active' : 'tab'}}"
+                       href="{{route('admin.cars')}}">
+                        Cars
 
-                   </a>
-                   <a class="{{request()->route()->getName() == 'admin.users' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.users')}}">
-                       Users
+                    </a>
+                    <a class="{{request()->route()->getName() == 'admin.users' ? 'tab active' : 'tab'}}"
+                       href="{{route('admin.users')}}">
+                        Users
 
-                   </a>
-                   <a class="{{request()->route()->getName() == 'admin.rents' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.rents')}}">
-                       Rents
+                    </a>
+                    <a class="{{request()->route()->getName() == 'admin.rents' ? 'tab active' : 'tab'}}"
+                       href="{{route('admin.rents')}}">
+                        Rents
 
-                   </a>
-                   <a class="{{request()->route()->getName() == 'admin.reviews' ? 'tab active' : 'tab'}}"
-                      href="{{route('admin.reviews')}}">
-                       Reviews
+                    </a>
+                    <a class="{{request()->route()->getName() == 'admin.reviews' ? 'tab active' : 'tab'}}"
+                       href="{{route('admin.reviews')}}">
+                        Reviews
 
-                   </a>
-               </div>
+                    </a>
+                </div>
             @endif
             <div
                 class="ml-4 w-10 px-4 bg-[url({{asset('assets/userAvatars/'.auth('web')->user()->avatar)}})] h-10 bg-center bg-cover border flex items-center justify-center rounded-full">
@@ -72,7 +73,7 @@
             <div>
                 <a href="{{route('logout')}}"
                    class="flex gap-2 items-center justify-center px-2 py-1 border-2 border-slate-500 text-slate-500 rounded">
-                    Log out  <i class="fa fa-sign-out"></i>
+                    Log out <i class="fa fa-sign-out"></i>
                 </a>
             </div>
 
@@ -87,10 +88,10 @@
                 @lang('actions.login')</a>
         </div>
     @endguest
-{{--    <div>--}}
-{{--            <a href="{{route('locale.setLocale', 'ua')}}" class="btn">UA</a>--}}
-{{--            <a href="{{route('locale.setLocale', 'en')}}" class="btn">EN</a>--}}
-{{--        </div>--}}
+    {{--    <div>--}}
+    {{--            <a href="{{route('locale.setLocale', 'ua')}}" class="btn">UA</a>--}}
+    {{--            <a href="{{route('locale.setLocale', 'en')}}" class="btn">EN</a>--}}
+    {{--        </div>--}}
 </header>
 
 <main>

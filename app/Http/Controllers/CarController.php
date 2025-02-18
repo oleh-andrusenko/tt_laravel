@@ -126,28 +126,16 @@ class CarController extends Controller
     public function rent_proceed(Car $car)
     {
         $data = request()->validate([
-            'endDate' => 'required|date',
-            'startDate' => 'required|date',
-            'price' => 'required',
-            'duration' => 'required|integer',
+            'start'=>'',
+            'end'=>'',
+            'duration'=>'',
+            'price'=>''
         ]);
+        $data['car_id'] = $car->id;
+        $data['user_id'] = auth()->user()->id;
 
-
-        $car->update([
-            'inRent' => 1
-        ]);
-        $rent = Rent::create([
-            'carId' => $car['id'],
-            'userEmail' => auth('web')->user()->email,
-            'start' => $data['startDate'],
-            'end' => $data['endDate'],
-            'duration' => $data['duration'],
-            'price' => $data['price'],
-        ]);
-        if ($rent) {
-            return redirect()->route('profiles.show', auth('web')->user()->id);
-
-        }
+        Rent::create($data);
+       return redirect()->route('profile.show', auth()->user());
     }
 
     public function release(Car $car)
@@ -159,6 +147,8 @@ class CarController extends Controller
         ]);
         return redirect()->route('cars.table');
     }
-
-
+    public function available(Car $car)
+    {
+        return json_encode($car->rents);
+    }
 }

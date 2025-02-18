@@ -25,7 +25,7 @@ Route::group([
     Route::post('/login_proceed', [AuthController::class, 'login'])->name('login_proceed');
     Route::post('/register_proceed', [AuthController::class, 'register'])->name('register_proceed');
 });
-
+Route::get('cars/{car}/available', [CarController::class, 'available'])->name('available');
 
 Route::group([
     'middleware' => 'is_logged_in',
@@ -34,6 +34,8 @@ Route::group([
     Route::post('cars/{car}/rent_proceed', [CarController::class, 'rent_proceed'])->name('cars.rent_proceed');
     Route::get('cars/{car}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
     Route::post('cars/{car}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+
+
     Route::get('/profiles/{user}', [UserController::class, 'show'])->name('profile.show');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });

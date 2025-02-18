@@ -14,6 +14,7 @@ class Car extends Model
 
     protected $table = 'cars';
     protected $guarded = false;
+    protected $hidden = ['photos', 'created_at', 'updated_at', 'deleted_at'];
 
     public function reviews()
     {
