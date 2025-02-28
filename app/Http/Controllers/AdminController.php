@@ -36,7 +36,7 @@ class AdminController extends Controller
 
     public function rents()
     {
-        $rents = Rent::all();
+        $rents = Rent::with('user')->get();
         return view('admin.rents', compact('rents'));
     }
 

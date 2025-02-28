@@ -1,11 +1,9 @@
 @extends('layouts.main')
 
-
-
 @section('content')
     <div
         class="w-2/3 pt-10 flex flex-col justify-center items-center rounded-xl shadow-lg border shadow-gray-400 px-6 py-4">
-        <h2 class="my-2 text-xl font-semibold text-blue-700">@lang('profile.title')</h2>
+        <h2 class="my-2 text-xl font-semibold text-blue-700 ">@lang('profile.title')</h2>
         <div class="flex gap-4 w-full ">
             <div class="w-1/4 flex items-center justify-center border-r-2">
                 <div
@@ -39,7 +37,7 @@
                     <p class="flex justify-between text-slate-600 text-sm">
                         Registered at {{$user->created_at->format('M j, Y')}}
                         <br>
-                        {{count($user->rents)}} rents created
+                        {{count($user->rents)}} rents, {{count($user->reviews)}} reviews
                     </p>
                 </div>
 
@@ -52,46 +50,12 @@
 
     </div>
     <div class="w-2/3 rounded-xl shadow-lg border shadow-gray-400 px-6 py-4 text-sm mt-6">
-        <h2 class="my-2 text-xl font-semibold text-blue-700">Your rents history</h2>
+        <h2 class="my-2 text-xl font-semibold text-blue-700 text-center">Your rents history</h2>
         <ul>
             @forelse($user->rents as $rent)
-
-                <li class="flex gap-6 border-b-2 py-6">
-                    <p>Rent ID: {{$rent->id}}</p>
-                    <div class="flex flex-col gap-2">
-                        <a href="{{route('cars.show', $rent->car->id)}}" class="link"> {{$rent->car->model}}, {{$rent->car->year}}</a>
-                        <div
-                            class="h-[100px] w-[200px] aspect-auto bg-[url({{asset('assets/carsPreviews/'.$rent->car->preview_photo)}})] bg-cover bg-center rounded-md"
-                            alt="Preview of {{$rent->car->model}}"></div>
-
-                    </div>
-
-
-                    <div class="flex flex-col items-center gap-1">
-                        <p class="font-semibold text-blue-700 uppercase">Start</p>
-                        <p>{{$rent->start}}</p></div>
-                    <div class="flex flex-col items-center gap-1">
-                        <p class="font-semibold text-blue-700 uppercase">End</p>
-                        <p>{{$rent->end}}</p>
-                    </div>
-                    <div class="flex flex-col items-center gap-1">
-                        <p class="font-semibold text-blue-700 uppercase">Duration</p>
-                        <p>{{$rent->duration}} day(s)</p></div>
-                    <div class="flex flex-col items-center gap-1">
-                        <p class="font-semibold text-blue-700 uppercase">Rent price</p>
-                        <p>${{number_format($rent->price)}}</p></div>
-                    <div class="flex flex-col items-center gap-1">
-                        <p class="font-semibold text-blue-700 uppercase">Payment status</p>
-                        <p>{{$rent->paymentStatus}}</p></div>
-                    <div class="flex flex-col items-center gap-1">
-                        <p class="font-semibold text-blue-700 uppercase">Rent status</p>
-                        <p>{{$rent->rentStatus}}</p></div>
-
-
-                </li>
-
+                <x-rent-tile :rent="$rent"/>
             @empty
-                <li>no rents yet</li>
+                <li class="w-full mx-auto text-lg text-slate-700">No rents yet...</li>
             @endforelse
         </ul>
     </div>

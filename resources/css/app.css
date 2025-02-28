@@ -19,19 +19,6 @@ body{
 
 }
 
-table tr:nth-child(odd) {
-    @apply shadow-sm bg-gray-100;
-}
-
-table th {
-    @apply h-10 px-6 py-2  text-center text-slate-900 bg-blue-100 border-black text-[12px] uppercase font-semibold;
-}
-
-
-
-table td {
-    @apply p-2  text-center text-slate-800 border-black text-[12px];
-}
 
 #modal {
     display: none;

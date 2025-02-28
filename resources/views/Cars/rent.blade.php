@@ -64,7 +64,7 @@
                         Total price:
                     </span>
                     <span id="total_price" class="text-slate-700"></span>
-                    <input type="number" hidden="hidden" name="price" id="price">
+                    <input  hidden="hidden" name="price" id="price"/>
                 </p>
                 <button type="submit" class="btn w-full">Proceed rent</button>
             </div>
